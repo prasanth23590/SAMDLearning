@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAMD Study Plan – Chapters 1–3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f5f7;--panel:#fff;--ink:#14213d;--mute:#5a6578;--line:#d6dde5;--accent:#2b59c3;--hi:#ffd84d;--ok:#1f7a4d;
+--head:'Bricolage Grotesque',system-ui,sans-serif;--body:'Source Serif 4',Georgia,serif}
+:root:not([data-theme="light"]){}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1622;--panel:#172033;--ink:#e8edf5;--mute:#9aa7bc;--line:#2a3650;--accent:#7fa2f5;--ok:#5fcf9a}}
+:root[data-theme="dark"]{--bg:#0f1622;--panel:#172033;--ink:#e8edf5;--mute:#9aa7bc;--line:#2a3650;--accent:#7fa2f5;--ok:#5fcf9a}
+*{box-sizing:border-box}
+html{scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 var(--body)}
+.layout{display:grid;grid-template-columns:320px 1fr;min-height:100vh}
+aside{border-right:1px solid var(--line);padding:24px 20px;position:sticky;top:0;height:100vh;overflow:auto;background:var(--panel)}
+h1{font:700 22px/1.2 var(--head);margin:0 0 4px}
+.sub{color:var(--mute);font-size:15px;margin:0 0 16px}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--hi);transition:width .3s}
+.pct{font:500 14px var(--head);color:var(--mute);margin:6px 0 18px}
+.chap{font:700 13px var(--head);color:var(--mute);margin:18px 0 6px}
+nav button{all:unset;box-sizing:border-box;display:flex;gap:10px;align-items:flex-start;width:100%;padding:8px 10px;border-radius:6px;cursor:pointer;font:500 15px/1.3 var(--head)}
+nav button:hover{background:var(--bg)}
+nav button[aria-current="true"]{background:var(--ink);color:var(--bg)}
+nav button:focus-visible,.btn:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+nav .n{min-width:22px;color:var(--mute)}
+nav button[aria-current="true"] .n{color:var(--hi)}
+nav .done .t{text-decoration:line-through;opacity:.6}
+main{padding:40px min(5vw,64px) 80px;max-width:860px}
+.crumb{font:500 15px var(--head);color:var(--accent);margin:0}
+h2{font:700 34px/1.15 var(--head);margin:6px 0 8px}
+.meta{color:var(--mute);font-size:15px;margin:0 0 24px}
+h3{font:700 19px var(--head);margin:30px 0 8px}
+ul{padding-left:22px;margin:8px 0}li{margin:6px 0}
+table{border-collapse:collapse;width:100%;font-size:16px;margin:12px 0;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--panel);font-family:var(--head)}
+code{background:var(--panel);border:1px solid var(--line);padding:1px 5px;border-radius:4px;font-size:.9em}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 18px;margin:14px 0}
+.card.check{border-left:5px solid var(--hi)}
+.card.ex{border-left:5px solid var(--accent)}
+.card b.lab{font-family:var(--head)}
+details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 16px;margin:18px 0}
+summary{cursor:pointer;font:700 16px var(--head)}
+details[open] summary{margin-bottom:8px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px;align-items:center}
+.btn{all:unset;box-sizing:border-box;cursor:pointer;padding:10px 16px;border-radius:6px;font:700 15px var(--head);border:2px solid var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn:hover{background:var(--hi);color:#14213d;border-color:var(--hi)}
+.tools{display:flex;gap:8px;margin-top:16px}
+.tools .btn{padding:6px 10px;font-size:13px}
+.menu{display:none}
+@media(max-width:860px){.layout{display:block}aside{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line)}
+nav{display:none}nav.open{display:block}.menu{display:inline-block;margin-top:12px}main{padding:24px 18px 60px}h2{font-size:28px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+<h1>Statistical Analysis for Managerial Decisions</h1>
+<p class="sub">Study plan · Chapters 1–3 · 11 sessions</p>
+<div class="bar" role="progressbar" aria-label="Progress" aria-valuemin="0" aria-valuemax="100" id="pb"><i id="pbi"></i></div>
+<p class="pct" id="pct">0 of 11 sessions done</p>
+<button class="btn menu" id="menuBtn" aria-expanded="false">Sessions</button>
+<nav id="nav" aria-label="Sessions"></nav>
+<div class="tools"><button class="btn" id="theme">Toggle theme</button><button class="btn" id="reset">Reset progress</button></div>
+</aside>
+<main id="main" tabindex="-1"></main>
+</div>
+<script>
+const S=[
+{id:0,ch:"Prerequisites",title:"Math you need first",time:"45 min",sec:"Skip anything you already know",
+body:`<table><tr><th>Topic</th><th>What you need</th><th>Self-test</th></tr>
+<tr><td>Fractions, decimals, %</td><td>Convert fluently</td><td>15/28 = ?</td></tr>
+<tr><td>Set notation</td><td>∩ (and), ∪ (or), Aᶜ (not)</td><td>Shade A ∩ Bᶜ on a Venn diagram</td></tr>
+<tr><td>Summation Σ</td><td>Σ x·P(x): multiply each value by its probability, then add</td><td>Σ x² over {1,2,3} = ?</td></tr>
+<tr><td>Combinations nCr</td><td>n! / (r!(n−r)!)</td><td>12C2 = ?</td></tr>
+<tr><td>Powers</td><td>Use a calculator</td><td>0.96¹² = ?</td></tr></table>`,
+ans:`<ul><li>15/28 ≈ 0.536</li><li>A ∩ Bᶜ = the part of A outside B</li><li>1 + 4 + 9 = 14</li><li>12C2 = 66</li><li>0.96¹² ≈ 0.613</li></ul>`},
+
+{id:1,ch:"Chapter 1 · Foundations & Sampling",title:"Vocabulary",time:"60–75 min",sec:"§1.1–1.5",
+body:`<h3>Learn</h3><ul>
+<li><b>PPDAC:</b> Problem → Plan → Data → Analysis → Conclusion.</li>
+<li><b>Chain:</b> target population → study population → sample. The study population is who you could actually reach.</li>
+<li><b>Parameter</b> (population, usually unknown) vs <b>statistic</b> (sample, always computable). P goes with Population, S with Sample.</li>
+<li><b>Sample size n</b> = responses received, not surveys sent (500 sent, 180 replied, n = 180).</li>
+<li>Subject, variable, dataset: one row per subject, one column per variable.</li></ul>
+<div class="card ex"><b class="lab">Exercise 1 (AI job-displacement survey)</b><br>Fill in every blank in §1.4: target population, study population, sample, sample size, subject, parameter, statistic.</div>
+<div class="card ex"><b class="lab">Exercise 2</b><br>A software firm emails 400 randomly chosen companies from its own customer list to learn what share of <i>all mid-size Indian manufacturers</i> would pay for an AI demand-forecasting tool. 150 reply; 42% say yes. Identify target population, study population, sample and n, parameter, statistic, and one reason 42% may mislead.</div>
+<div class="card check"><b class="lab">Checkpoint</b><br>Give two reasons the 68% figure can't be generalised to all Indian employees.</div>`,
+ans:`<h3>Exercise 1</h3><ul><li>Target: all Indian employees across all sectors and company types</li><li>Study population: employees of the top 10 Indian IT companies</li><li>Sample: the 180 respondents; n = 180</li><li>Subject: each responding employee</li><li>Parameter: true proportion of all Indian employees who believe AI-driven displacement is imminent</li><li>Statistic: 0.68</li></ul>
+<h3>Exercise 2</h3><ul><li>Target: all mid-size manufacturing companies in India</li><li>Study population: this firm's existing customers (mid-size manufacturers on its list)</li><li>Sample: the 150 responding companies; n = 150</li><li>Parameter: true share of all mid-size Indian manufacturers who would pay</li><li>Statistic: 0.42</li><li>Why misleading: existing customers already trust the firm (study population ≠ target), and only 150 of 400 responded (non-response bias)</li></ul>
+<h3>Checkpoint</h3><p>(1) Study population is IT-only and large-firm-only, so it doesn't represent the target. (2) Only 180 of 500 responded; responders may hold stronger views (non-response bias).</p>`},
+
+{id:2,ch:"Chapter 1 · Foundations & Sampling",title:"Sampling designs",time:"60–75 min",sec:"§1.6–1.8",
+body:`<h3>Learn</h3><ul>
+<li><b>Sampling frame:</b> the list of all population units.</li>
+<li><b>SRS:</b> every possible sample of size n is equally likely. Default is SWOR (without replacement).</li>
+<li><b>Cluster vs stratified</b> is the most-tested distinction:</li></ul>
+<table><tr><th></th><th>Within-group variation</th><th>Between-group variation</th><th>What you do</th></tr>
+<tr><td>Cluster</td><td>High (each group is a mini-population)</td><td>Low</td><td>Pick <i>some</i> groups, survey inside them</td></tr>
+<tr><td>Stratified</td><td>Low (homogeneous groups)</td><td>High</td><td>Sample from <i>every</i> group</td></tr></table>
+<ul><li><b>Proportional allocation:</b> nₕ = n × (Nₕ / N)</li></ul>
+<div class="card ex"><b class="lab">Exercise</b><br>Compute the AI CoE table (n = 100). Strengths: IT 15,000; Manufacturing 12,000; Financial Services 8,000; Consumer Products 10,000; Healthcare 7,000; Energy 8,000; N = 60,000.</div>
+<div class="card check"><b class="lab">Checkpoint</b><br>Bank branches vs AI CoE verticals: which design fits each, and why?</div>`,
+ans:`<table><tr><th>Vertical</th><th>Exact</th><th>Rounded</th></tr><tr><td>IT Services</td><td>25.00</td><td>25</td></tr><tr><td>Manufacturing</td><td>20.00</td><td>20</td></tr><tr><td>Financial Services</td><td>13.33</td><td>13</td></tr><tr><td>Consumer Products</td><td>16.67</td><td>17</td></tr><tr><td>Healthcare</td><td>11.67</td><td>12</td></tr><tr><td>Energy</td><td>13.33</td><td>13</td></tr></table>
+<p>Total = 100.</p><p><b>Checkpoint:</b> Bank branches are similar to each other and internally diverse, so <b>cluster</b> sampling works. AI CoE verticals are internally homogeneous and differ from each other, so use <b>stratified</b> sampling.</p>`},
+
+{id:3,ch:"Chapter 1 · Foundations & Sampling",title:"Biases and multi-stage sampling",time:"60–75 min",sec:"§1.9–1.10",
+body:`<h3>Learn</h3><ul>
+<li><b>Sampling bias</b> (incl. under-coverage): flawed selection, e.g. convenience or volunteer samples.</li>
+<li><b>Non-response bias:</b> those who respond differ from those who don't.</li>
+<li><b>Response bias:</b> wording, social desirability, unbalanced scales (Ryanair's all-positive scale).</li>
+<li>Question pitfalls: complex, double-barreled, leading, ordering effects.</li>
+<li><b>Multi-stage sampling</b> (Myanmar DHS): strata (15 regions × rural/urban) → clusters (geographic blocks) → 30 households per cluster.</li></ul>
+<div class="card ex"><b class="lab">Exercise</b><br>For each of the three biases, write one example from your own work (SAP, product feedback, customer surveys).</div>
+<div class="card check"><b class="lab">Checkpoint</b><br>Classify the §1.6 schemes: (1) fintech-conference attendees for UPI usage, (2) users with 5+ support contacts for chatbot satisfaction, (3) one large IT company for job-displacement fear.</div>`,
+ans:`<ul><li>All three §1.6 schemes are <b>sampling bias</b> (convenience / under-coverage): each excludes most of the target population.</li><li>Myanmar DHS: 15 regions × 2 = <b>30 strata</b>; 442 clusters (123 urban, 319 rural); 442 × 30 = 13,260 households.</li></ul>`},
+
+{id:4,ch:"Chapter 2 · Probability",title:"Meaning of probability and events",time:"60–75 min",sec:"§2.1–2.3",
+body:`<h3>Learn</h3><ul>
+<li><b>Frequentist:</b> long-run relative frequency. <b>Subjective:</b> degree of belief (Hubinger's 10%). <b>Model-based:</b> e.g. LLM next-token probabilities.</li>
+<li>Sample space S, events, complement Aᶜ, intersection ∩, union ∪, mutually exclusive.</li>
+<li><code>P(Aᶜ) = 1 − P(A)</code> &nbsp; <code>P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</code></li></ul>
+<div class="card ex"><b class="lab">Exercise: Project delivery risk</b><br>100 projects: 35 over budget (B), 28 late (L), 15 both. (a) P(B), P(L), P(B∩L). (b) P(B∪L). (c) P(neither). (d) Mutually exclusive? (e) A manager says 35% + 28% = 63% had a problem. What's wrong? Draw the Venn diagram first.</div>`,
+ans:`<ul><li>Die: S = {1,…,6}, A = {2,4,6}. Product: S = {above, on, below}; meets-or-exceeds = {above, on}. If P(A) = 0.8, P(Aᶜ) = 0.2.</li>
+<li>(a) .35, .28, .15 (b) .35 + .28 − .15 = <b>.48</b> (c) <b>.52</b></li>
+<li>(d) Not mutually exclusive: 15 projects are both.</li>
+<li>(e) The manager double-counted the 15% overlap; the correct figure is 48%.</li></ul>`},
+
+{id:5,ch:"Chapter 2 · Probability",title:"Conditional probability",time:"60–75 min",sec:"§2.4.1–2.4.2",
+body:`<h3>Learn</h3><ul><li><code>P(A | B) = P(A ∩ B) / P(B)</code>: conditioning shrinks the denominator to "only cases where B happened".</li><li>P(A|B) and P(B|A) answer different questions.</li></ul>
+<div class="card ex"><b class="lab">Exercise 1</b><br>Reverse the conditioning on the project data: P(B | L) and P(L | B). Same or different? Why?</div>
+<div class="card ex"><b class="lab">Exercise 2: ITR audit table (80,200 returns)</b>
+<table><tr><th>Income</th><th>Audited</th><th>Not</th><th>Total</th></tr><tr><td>Under ₹15L</td><td>10</td><td>14,090</td><td>14,100</td></tr><tr><td>₹15–20L</td><td>71</td><td>30,629</td><td>30,700</td></tr><tr><td>₹20–25L</td><td>89</td><td>24,611</td><td>24,700</td></tr><tr><td>₹25L+</td><td>80</td><td>10,620</td><td>10,700</td></tr><tr><td>Total</td><td>250</td><td>79,950</td><td>80,200</td></tr></table>
+(a) P(audited). (b) Audit rate per bracket; what pattern? (c) P(audit | ₹25L+). (d) P(₹25L+ | audit). (e) Why (c) ≠ (d)? (f) Which bracket has the largest share of audits? Is it the highest-rate bracket?</div>
+<div class="card check"><b class="lab">Core lesson</b><br>A high rate within a group is not the same as a large share of the total.</div>`,
+ans:`<ul><li>P(B|L) = 15/28 ≈ <b>.536</b>; P(L|B) = 15/35 ≈ <b>.429</b>. Different reference groups.</li>
+<li>(a) 250/80,200 ≈ .0031</li>
+<li>(b) .0007, .0023, .0036, .0075: audit rate rises with income</li>
+<li>(c) 80/10,700 ≈ .0075 (d) 80/250 = <b>.32</b></li>
+<li>(e) Different denominators: all ₹25L+ returns vs all audited returns</li>
+<li>(f) ₹20–25L has the largest share (89/250 = 35.6%) but ₹25L+ has the highest rate. Group size matters.</li></ul>`},
+
+{id:6,ch:"Chapter 2 · Probability",title:"Multiplication rule and independence",time:"60–75 min",sec:"§2.4.3–2.4.5",
+body:`<h3>Learn</h3><ul><li><code>P(A ∩ B) = P(A | B) · P(B)</code></li><li>Independent: <code>P(A | B) = P(A)</code>, equivalently <code>P(A ∩ B) = P(A)P(B)</code>.</li>
+<li>Mutual independence of A, B, C needs all pairwise conditions <i>and</i> P(A∩B∩C) = P(A)P(B)P(C).</li></ul>
+<div class="card ex"><b class="lab">Exercise 1</b><br>Supplier misses dispatch with P = 0.10; given a miss, production is disrupted with P = 0.40. P(both)?</div>
+<div class="card ex"><b class="lab">Exercise 2</b><br>Does the ITR table support independence of income and audit?</div>
+<div class="card ex"><b class="lab">Exercise 3: ticket box</b><br>8 tickets: two each labelled 111, 100, 010, 001. A, B, C = first, second, third digit is 1. List all 8 tickets; find each P(A), P(A∩B), P(A∩B∩C).</div>
+<div class="card ex"><b class="lab">Exercise 4: recursive-AI chain</b><br>P(A) = .60, P(B|A) = .50, P(C|A∩B) = .40. (a) P(full chain). (b) New value if P(C|A∩B) drops to .10. (c) Does (a) need independence? (d) What extra information would you need to choose which stage to reduce?</div>`,
+ans:`<ul><li>1: .10 × .40 = <b>.04</b></li><li>2: No. Audit rates differ across brackets (.0007 to .0075).</li>
+<li>3: P(A)=P(B)=P(C)=½; each pair ¼ = ½·½ so pairwise independent; but P(A∩B∩C) = P(111) = ¼ ≠ ⅛, so <b>not mutually independent</b>.</li>
+<li>4a: .6 × .5 × .4 = <b>.12</b>; 4b: .6 × .5 × .1 = <b>.03</b>; 4c: No, it uses conditional probabilities (chain rule); 4d: cost and feasibility of intervening at each stage, and how much each stage's probability can be reduced.</li></ul>`},
+
+{id:7,ch:"Chapter 2 · Probability",title:"Bayes' theorem",time:"75 min",sec:"§2.5–2.6",
+body:`<h3>Learn</h3><ul><li>Prior P(B) → likelihood P(A|B) → posterior P(B|A).</li>
+<li><code>P(B|A) = P(A|B)P(B) / [P(A|B)P(B) + P(A|Bᶜ)P(Bᶜ)]</code></li>
+<li><b>Always build the 100,000-people frequency table alongside the formula.</b> It is faster and harder to get wrong.</li></ul>
+<div class="card ex"><b class="lab">Exercise 1: DMD test</b><br>P(D) = 0.001, sensitivity 0.95, false-positive rate 0.01. P(D | +)?</div>
+<div class="card ex"><b class="lab">Exercise 2: second positive test</b><br>Assume conditional independence; use the first posterior as the prior. P(D | +,+)? Why does it jump? Would repeated tests always be conditionally independent?</div>
+<div class="card ex"><b class="lab">Exercise 3: credit risk</b><br>40% of applicants score below 600 (15% default); 60% score ≥600 (1% default). P(below 600 | default)? Should every low-score applicant be rejected?</div>
+<div class="card check"><b class="lab">Checkpoint</b><br>Explain in one sentence why a 95%-sensitive test gives only ~9% posterior.</div>`,
+ans:`<ul><li>1: .00095 / (.00095 + .00999) = .00095/.01094 ≈ <b>.087</b>. Per 100,000: 100 have DMD, 95 test positive; 99,900 healthy, 999 false positives; 95/1,094 ≈ 8.7%.</li>
+<li>2: prior .087 → .087×.95 / (.087×.95 + .913×.01) ≈ <b>.90</b>. It jumps because a false positive must happen twice. Repeated tests may share measurement or process error, so not always independent.</li>
+<li>3: P(D) = .4×.15 + .6×.01 = .066; P(L|D) = .06/.066 ≈ <b>.909</b>. No: a probability isn't a decision; you also need costs of false approvals vs false rejections, expected gains and applicant details.</li>
+<li>Checkpoint: the disease is so rare that false positives from the huge healthy group outnumber true positives from the tiny sick group.</li></ul>`},
+
+{id:8,ch:"Chapter 3 · Distributions",title:"Random variables, Bernoulli, Binomial",time:"60–75 min",sec:"§3.1–3.3",
+body:`<h3>Learn</h3><ul><li>Discrete (countable) vs continuous (interval). A pmf must have probabilities in [0,1] summing to 1.</li>
+<li><code>E(X) = Σ x·P(x)</code> is a long-run average; <code>Var(X) = Σ (x−μ)² P(x)</code>.</li>
+<li>Bernoulli(p): mean p, variance p(1−p).</li>
+<li>Binomial(n, p) needs: fixed n, two outcomes, constant p, independence. <code>P(Y=y) = nCy · pʸ(1−p)ⁿ⁻ʸ</code>; mean np; variance np(1−p).</li></ul>
+<div class="card ex"><b class="lab">Exercise: LLM briefing</b><br>12 independent claims, 4% error chance each; Y = number of errors. (a) P(no errors). (b) P(at least one). (c) E(Y). (d) Respond to "each claim is 96% reliable, so no verification needed". (e) Why might independence fail?</div>`,
+ans:`<ul><li>Y ~ Binomial(12, 0.04)</li><li>(a) .96¹² ≈ <b>.613</b> (b) 1 − .613 ≈ <b>.387</b> (c) 12 × .04 = <b>0.48</b></li>
+<li>(d) Per-claim reliability compounds: ~39% of briefings contain at least one material error, so verification is still needed.</li>
+<li>(e) One wrong premise can propagate into later claims, making errors positively dependent and clustered; Binomial understates that.</li></ul>`},
+
+{id:9,ch:"Chapter 3 · Distributions",title:"Normal distribution",time:"75 min",sec:"§3.4–3.5",
+body:`<h3>Learn</h3><ul><li>Continuous: probability = area under the curve; P(X = exact value) = 0.</li>
+<li>Standardise: <code>Z = (X − μ)/σ</code>, Z ~ N(0,1).</li>
+<li>68–95–99.7 rule: within μ±σ, μ±2σ, μ±3σ.</li></ul>
+<h3>Table patterns (Appendix A)</h3><ul><li>P(Z ≤ z) = Φ(z), read directly</li><li>P(Z > z) = 1 − Φ(z)</li><li>P(a < Z < b) = Φ(b) − Φ(a)</li><li>Inverse: given probability, find z (0.95 → 1.645)</li></ul>
+<table><tr><th>z</th><td>0.00</td><td>1.00</td><td>1.25</td><td>1.28</td><td>1.645</td><td>1.96</td></tr><tr><th>Φ(z)</th><td>.5000</td><td>.8413</td><td>.8944</td><td>.8997</td><td>.9500</td><td>.9750</td></tr></table>
+<div class="card ex"><b class="lab">Drill</b><br>P(Z > 1.25) = ?</div>
+<div class="card ex"><b class="lab">Exercise: inventory</b><br>Weekly demand X ~ N(500, 100²). (a) P(stockout) if you stock 600. (b) Stock needed for a 95% service level. (c) Why might a manager choose below 95% for one product and above 99% for another?</div>`,
+ans:`<ul><li>P(Z > 1.25) = 1 − .8944 = <b>.1056</b></li>
+<li>(a) z = (600−500)/100 = 1; P(stockout) = 1 − .8413 = <b>.1587</b></li>
+<li>(b) 500 + 1.645×100 = 664.5, so stock <b>665 units</b></li>
+<li>(c) Service level trades off stockout cost, holding cost, margin, customer expectations and replenishment flexibility.</li></ul>`},
+
+{id:10,ch:"Chapter 3 · Distributions",title:"Model choice, software, consolidation",time:"60–75 min",sec:"§3.6–3.8",
+body:`<h3>Learn</h3><ul><li>Before calculating ask: What is the random variable? What values can it take? Which distribution? Are the assumptions defensible?</li>
+<li>Bernoulli = one binary outcome; Binomial = count in n trials; Normal = symmetric continuous measurement.</li></ul>
+<h3>Verify by software</h3><div class="card"><code>dbinom(0, 12, 0.04)</code> and <code>1 - pbinom(0, 12, 0.04)</code><br><code>1 - pnorm(600, 500, 100)</code> and <code>qnorm(0.95, 500, 100)</code><br>Python equivalents: <code>scipy.stats.binom.pmf</code>, <code>norm.cdf</code>, <code>norm.ppf</code></div>
+<div class="card check"><b class="lab">Final review</b><br>Recite the "Things to Remember" lists of all three chapters from memory, then solve one mixed problem per chapter without notes.</div>`,
+ans:`<ul><li>Software should return .6127, .3873, .1587, 664.49.</li><li>Priority if short on time: Bayes (Session 7) and Normal table reading (Session 9). Drill each twice.</li></ul>`}
+];
+const KEY="samd-progress-v1";
+let done={};try{done=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+const nav=document.getElementById("nav"),main=document.getElementById("main");
+let cur=0;
+function renderNav(){let h="",last="";
+for(const s of S){if(s.ch!==last){h+=`<div class="chap">${s.ch}</div>`;last=s.ch}
+h+=`<button data-i="${s.id}" class="${done[s.id]?"done":""}" ${s.id===cur?'aria-current="true"':""}><span class="n">${done[s.id]?"✓":s.id}</span><span class="t">${s.title}</span></button>`}
+nav.innerHTML=h;
+const n=Object.values(done).filter(Boolean).length;
+document.getElementById("pbi").style.width=(n/S.length*100)+"%";
+document.getElementById("pb").setAttribute("aria-valuenow",Math.round(n/S.length*100));
+document.getElementById("pct").textContent=n+" of "+S.length+" sessions done"}
+function show(i){cur=i;const s=S[i];
+main.innerHTML=`<p class="crumb">${s.ch}</p><h2>Session ${s.id}: ${s.title}</h2><p class="meta">${s.time} · ${s.sec}</p>${s.body}
+<details><summary>Answer key (attempt everything first)</summary>${s.ans}</details>
+<div class="actions">${i>0?'<button class="btn" id="prev">Previous</button>':""}
+<button class="btn primary" id="mark">${done[i]?"Mark as not done":"Mark session done"}</button>
+${i<S.length-1?'<button class="btn" id="next">Next session</button>':""}</div>`;
+document.title="Session "+s.id+" · SAMD Study Plan";
+renderNav();
+document.getElementById("mark").onclick=()=>{done[i]=!done[i];save();show(i)};
+const p=document.getElementById("prev"),nx=document.getElementById("next");
+if(p)p.onclick=()=>go(i-1);if(nx)nx.onclick=()=>go(i+1);}
+function go(i){location.hash="s"+i}
+nav.addEventListener("click",e=>{const b=e.target.closest("button");if(b){go(+b.dataset.i);nav.classList.remove("open")}});
+window.addEventListener("hashchange",()=>{const m=location.hash.match(/s(\d+)/);show(m&&S[+m[1]]?+m[1]:0);main.focus();window.scrollTo(0,0)});
+document.getElementById("menuBtn").onclick=e=>{const o=nav.classList.toggle("open");e.target.setAttribute("aria-expanded",o)};
+document.getElementById("reset").onclick=()=>{if(confirm("Clear all progress?")){done={};save();show(cur)}};
+document.getElementById("theme").onclick=()=>{const r=document.documentElement;const dark=getComputedStyle(r).getPropertyValue("--bg").trim()==="#0f1622";r.dataset.theme=dark?"light":"dark"};
+const m=location.hash.match(/s(\d+)/);show(m&&S[+m[1]]?+m[1]:0);
+</script>
+</body>
+</html>
